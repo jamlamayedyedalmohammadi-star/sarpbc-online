@@ -27,7 +27,12 @@
     body {
       background-color: var(--bg-gray);
       background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='600' height='600'%3E%3Cfilter id='grunge'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.025' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.14  0 0 0 0 0.14  0 0 0 0 0.15  0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grunge)'/%3E%3C/svg%3E");
+        radial-gradient(ellipse 35% 40% at 6% 12%, rgba(20, 20, 22, 0.75) 0%, transparent 75%),
+        radial-gradient(ellipse 40% 35% at 94% 18%, rgba(18, 18, 20, 0.8) 0%, transparent 75%),
+        radial-gradient(ellipse 45% 45% at 8% 88%, rgba(18, 18, 20, 0.78) 0%, transparent 75%),
+        radial-gradient(ellipse 38% 42% at 92% 85%, rgba(20, 20, 22, 0.75) 0%, transparent 75%),
+        radial-gradient(ellipse 30% 25% at 82% 48%, rgba(22, 22, 24, 0.6) 0%, transparent 70%),
+        radial-gradient(ellipse 25% 30% at 18% 52%, rgba(24, 24, 26, 0.5) 0%, transparent 70%);
       background-attachment: fixed;
       color: var(--text-main);
       min-height: 100vh;
@@ -43,12 +48,32 @@
       margin-bottom: 1.5rem;
     }
 
+    .logo-stage {
+      position: relative;
+      display: inline-block;
+      max-width: 480px;
+      width: 100%;
+      margin-bottom: 0.75rem;
+    }
+
+    .cracks-svg {
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      transform: translateX(-50%);
+      width: 112%;
+      height: 62%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
     .logo {
+      position: relative;
+      z-index: 2;
       max-width: 440px;
       width: 100%;
       height: auto;
-      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
-      margin-bottom: 0.75rem;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
     }
 
     .subtitle {
@@ -56,7 +81,6 @@
       font-size: 0.95rem;
     }
 
-    /* Navigation Tabs */
     .tabs {
       display: flex;
       gap: 0.5rem;
@@ -90,7 +114,6 @@
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
     }
 
-    /* Tab Content Containers */
     .tab-content {
       display: none;
       width: 100%;
@@ -107,7 +130,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Play Tab */
     .game-frame-wrapper {
       background: #000;
       border: 1px solid var(--border);
@@ -131,7 +153,6 @@
       margin-top: 0.75rem;
     }
 
-    /* Download Tab Grid */
     .download-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -224,17 +245,47 @@
 <body>
 
   <header>
-    <img src="./logo.png" alt="Supersonic Acrobatic Rocket-Powered Battle-Cars" class="logo" />
+    <div class="logo-stage">
+      <svg class="cracks-svg" viewBox="0 0 600 180" fill="none" xmlns="http://w3.org">
+        <polygon points="55,35 545,35 535,135 65,135" fill="#171719" />
+        <g stroke="#111113" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="62,55 32,42 12,48" stroke-width="4" />
+          <polyline points="32,42 22,26" stroke-width="2.5" />
+          <polyline points="58,95 24,104 6,118" stroke-width="4.5" />
+          <polyline points="24,104 14,92" stroke-width="2.5" />
+          <polyline points="68,128 42,152 28,170" stroke-width="4" />
+          <polyline points="42,152 54,168" stroke-width="2.5" />
+          <polyline points="145,134 132,158 118,176" stroke-width="4" />
+          <polyline points="132,158 148,172" stroke-width="2.5" />
+          <polyline points="235,134 242,162 230,178" stroke-width="3.5" />
+          <polyline points="340,134 330,160 342,177" stroke-width="4" />
+          <polyline points="330,160 315,172" stroke-width="2.5" />
+          <polyline points="445,134 462,158 475,175" stroke-width="4" />
+          <polyline points="462,158 450,173" stroke-width="2.5" />
+          <polyline points="536,126 562,148 582,166" stroke-width="4.5" />
+          <polyline points="562,148 552,168" stroke-width="2.5" />
+          <polyline points="542,88 576,96 595,108" stroke-width="4" />
+          <polyline points="576,96 588,82" stroke-width="2.5" />
+          <polyline points="540,48 570,34 590,38" stroke-width="3.5" />
+        </g>
+        <g stroke="#505054" stroke-width="1.2" stroke-linecap="round" opacity="0.7">
+          <polyline points="62,57 32,44 12,50" />
+          <polyline points="58,97 24,106 6,120" />
+          <polyline points="145,136 132,160 118,178" />
+          <polyline points="340,136 330,162 342,179" />
+          <polyline points="542,90 576,98 595,110" />
+        </g>
+      </svg>
+      <img src="./logo.png" alt="Supersonic Acrobatic Rocket-Powered Battle-Cars" class="logo" />
+    </div>
     <p class="subtitle">HTML5 Browser Port &amp; iOS Client — Hosted from One Unified Server</p>
   </header>
 
-  <!-- Navigation Tabs -->
   <nav class="tabs">
     <button class="tab-btn active" onclick="switchTab('play', this)">Play in Browser</button>
     <button class="tab-btn" onclick="switchTab('download', this)">Downloads &amp; iOS Setup</button>
   </nav>
 
-  <!-- PLAY TAB -->
   <section id="tab-play" class="tab-content active">
     <div class="game-frame-wrapper">
       <iframe id="gameFrame" src="https://github.io" allowfullscreen></iframe>
@@ -245,11 +296,9 @@
     </div>
   </section>
 
-  <!-- DOWNLOAD TAB -->
   <section id="tab-download" class="tab-content">
     <div class="download-grid">
 
-      <!-- Option 1: SARPBC.ipa Download -->
       <div class="card card-red">
         <div>
           <span class="badge badge-red">iOS Sideload</span>
@@ -259,7 +308,6 @@
         <a href="./SARPBC.ipa" download class="btn btn-red">Download SARPBC.ipa</a>
       </div>
 
-      <!-- Option 2: SARPBC.zip Download -->
       <div class="card">
         <div>
           <span class="badge badge-blue">Game Files</span>
@@ -269,7 +317,6 @@
         <a href="./SARPBC.zip" download class="btn btn-blue">Download SARPBC.zip</a>
       </div>
 
-      <!-- Option 3: Game Website -->
       <div class="card card-red">
         <div>
           <span class="badge badge-red">Web Port</span>
