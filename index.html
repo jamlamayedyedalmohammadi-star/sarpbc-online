@@ -6,16 +6,16 @@
   <title>Supersonic Acrobatic Rocket-Powered Battle-Cars — HTML5 & iOS</title>
   <style>
     :root {
-      --bg-crt: #1c1c1e;
-      --bg-crt-edge: #0c0c0d;
-      --card-bg: #1e1e22;
-      --border: #3a3a40;
+      --bg-base: #333336;
+      --bg-dark: #252527;
+      --card-bg: #222225;
+      --border: #424247;
       --accent-blue: #2563eb;
       --accent-blue-hover: #3b82f6;
       --accent-red: #dc2626;
       --accent-red-hover: #ef4444;
       --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
+      --text-muted: #a1a1aa;
     }
 
     * {
@@ -26,16 +26,11 @@
     }
 
     body {
-      background-color: var(--bg-crt);
+      background-color: var(--bg-base);
       background-image:
-        repeating-linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 0.28) 0px,
-          rgba(0, 0, 0, 0.28) 1px,
-          transparent 1px,
-          transparent 3px
-        ),
-        radial-gradient(circle at center, #2c2c2f 0%, var(--bg-crt) 55%, var(--bg-crt-edge) 100%);
+        radial-gradient(ellipse at center, rgba(64, 64, 68, 0.45) 0%, rgba(30, 30, 32, 0.85) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='500' height='500'%3E%3Cfilter id='grunge'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='4' seed='12' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.12  0 0 0 0 0.12  0 0 0 0 0.13  0 0 0 0.45 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grunge)'/%3E%3C/svg%3E");
+      background-attachment: fixed;
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -71,6 +66,7 @@
       padding: 0.4rem;
       border-radius: 12px;
       border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
       margin-bottom: 1.5rem;
     }
 
@@ -152,6 +148,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
@@ -224,21 +221,6 @@
       color: var(--text-main);
       border: 1px solid var(--border);
     }
-
-    .link-box {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .link-input {
-      width: 100%;
-      background: #121214;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 0.6rem 0.75rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-    }
   </style>
 </head>
 <body>
@@ -274,7 +256,7 @@
         <div>
           <span class="badge badge-red">iOS Sideload</span>
           <h3>iOS Client (SARPBC.ipa)</h3>
-          <p>Install via AltStore, SideStore, or TrollStore. Connects directly to this directory to fetch game assets.</p>
+          <p>Install via AltStore, SideStore, or TrollStore. Needs website files.</p>
         </div>
         <a href="./SARPBC.ipa" download class="btn btn-red">Download SARPBC.ipa</a>
       </div>
@@ -282,52 +264,33 @@
       <!-- Option 2: SARPBC.zip Download -->
       <div class="card">
         <div>
-          <span class="badge badge-blue">Offline / Self-Host</span>
-          <h3>Web Package (SARPBC.zip)</h3>
-          <p>Complete archive of the HTML5 web files and assets for offline play or hosting on your own server.</p>
+          <span class="badge badge-blue">Game Files</span>
+          <h3>Game files</h3>
+          <p>Files needed for IPA.</p>
         </div>
         <a href="./SARPBC.zip" download class="btn btn-blue">Download SARPBC.zip</a>
       </div>
 
-      <!-- Option 3: Direct Host Link -->
+      <!-- Option 3: Game Website -->
       <div class="card card-red">
         <div>
-          <span class="badge badge-red">Asset Server URL</span>
-          <h3>Direct Host Link</h3>
-          <p>Paste this directory URL into the iOS app prompt (like Sonic 3 A.I.R.) or share it with friends to play.</p>
+          <span class="badge badge-red">Web Port</span>
+          <h3>Game website</h3>
+          <p>Play directly in your browser.</p>
         </div>
-        <div>
-          <div class="link-box" style="margin-bottom: 0.6rem;">
-            <input type="text" id="hostUrlInput" class="link-input" readonly />
-          </div>
-          <button id="copyBtn" class="btn btn-secondary" onclick="copyHostUrl()">Copy Link</button>
-        </div>
+        <a href="https://github.io" target="_blank" class="btn btn-red">Go to site</a>
       </div>
 
     </div>
   </section>
 
   <script>
-    const currentDirUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-    document.getElementById('hostUrlInput').value = currentDirUrl;
-
     function switchTab(tabName, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
       document.getElementById('tab-' + tabName).classList.add('active');
       btn.classList.add('active');
-    }
-
-    function copyHostUrl() {
-      const input = document.getElementById('hostUrlInput');
-      input.select();
-      input.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(input.value);
-
-      const btn = document.getElementById('copyBtn');
-      btn.textContent = 'Copied!';
-      setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
     }
 
     function goFullscreen() {
